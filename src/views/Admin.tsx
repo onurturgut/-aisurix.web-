@@ -1,14 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import {
+  ArrowLeft,
+  Eye,
+  LogOut,
+  Mail,
+  MailOpen,
+  MessageSquare,
+  Pencil,
+  Plus,
+  Save,
+  Trash2,
+  X,
+} from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 import type { AuthSession } from "@/types/auth";
 import type { ContactMessage, Project } from "@/types/data";
-import {
-  Plus, Pencil, Trash2, LogOut, ArrowLeft, Save, X,
-  Mail, MailOpen, Eye, MessageSquare
-} from "lucide-react";
 
 export default function Admin({ initialSession }: { initialSession?: AuthSession | null }) {
   const { session, loading, isAdmin, signOut } = useAuth(initialSession);
@@ -28,62 +37,66 @@ export default function Admin({ initialSession }: { initialSession?: AuthSession
 
   if (loading || !session || !isAdmin) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-muted-foreground">Yükleniyor...</div>
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="text-muted-foreground">Yukleniyor...</div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card/60 backdrop-blur-sm sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-5 py-4">
-          <div className="flex items-center gap-4">
-            <button onClick={() => router.push("/")} className="text-muted-foreground hover:text-primary transition-colors">
+      <header className="sticky top-0 z-40 border-b border-border bg-card/60 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+          <div className="flex min-w-0 flex-wrap items-center gap-3 sm:gap-4">
+            <button onClick={() => router.push("/")} className="text-muted-foreground transition-colors hover:text-primary">
               <ArrowLeft size={20} />
             </button>
             <div className="flex items-center gap-1">
-              <span className="text-primary font-mono font-bold opacity-70">&lt;</span>
-              <span className="text-foreground font-bold tracking-tight">ONUR</span>
-              <span className="text-primary font-mono font-bold opacity-70">/&gt;</span>
+              <span className="font-mono font-bold text-primary opacity-70">&lt;</span>
+              <span className="font-bold tracking-tight text-foreground">ONUR</span>
+              <span className="font-mono font-bold text-primary opacity-70">/&gt;</span>
             </div>
-            <span className="text-muted-foreground text-sm font-mono">/ Admin Panel</span>
+            <span className="min-w-0 text-sm font-mono text-muted-foreground">/ Admin Panel</span>
           </div>
           <button
             onClick={handleLogout}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-border text-muted-foreground hover:text-destructive hover:border-destructive/50 transition-colors text-sm"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-border px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-destructive/50 hover:text-destructive sm:w-auto"
           >
-            <LogOut size={16} /> Çıkış Yap
+            <LogOut size={16} /> Cikis Yap
           </button>
         </div>
       </header>
 
-      {/* Tabs */}
-      <div className="max-w-6xl mx-auto px-5 pt-6">
-        <div className="flex gap-1 border-b border-border">
-          <button
-            onClick={() => setTab("projects")}
-            className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors ${tab === "projects" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-          >
-            Projeler
-          </button>
-          <button
-            onClick={() => setTab("messages")}
-            className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-colors inline-flex items-center gap-2 ${tab === "messages" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-          >
-            <MessageSquare size={16} /> Mesajlar
-          </button>
+      <div className="mx-auto max-w-6xl px-4 pt-5 sm:px-5 sm:pt-6">
+        <div className="-mx-1 overflow-x-auto border-b border-border">
+          <div className="flex min-w-max gap-1 px-1">
+            <button
+              onClick={() => setTab("projects")}
+              className={`shrink-0 border-b-2 px-4 py-2.5 text-sm font-medium transition-colors sm:px-5 ${
+                tab === "projects" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Projeler
+            </button>
+            <button
+              onClick={() => setTab("messages")}
+              className={`inline-flex shrink-0 items-center gap-2 border-b-2 px-4 py-2.5 text-sm font-medium transition-colors sm:px-5 ${
+                tab === "messages" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <MessageSquare size={16} /> Mesajlar
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-5 py-8">
+      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-5 sm:py-8">
         {tab === "projects" ? <ProjectsTab /> : <MessagesTab />}
       </div>
     </div>
   );
 }
 
-/* ── Projects Tab ── */
 function ProjectsTab() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [editingProject, setEditingProject] = useState<Partial<Project> | null>(null);
@@ -96,12 +109,13 @@ function ProjectsTab() {
     setProjects(data);
   }
 
-  // Initial data load is async and intentionally runs once on mount.
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { fetchProjects(); }, []);
+  useEffect(() => {
+    void fetchProjects();
+  }, []);
 
   const handleSave = async () => {
     if (!editingProject?.title || !editingProject?.description) return;
+
     const payload = {
       title: editingProject.title,
       description: editingProject.description,
@@ -112,6 +126,7 @@ function ProjectsTab() {
       link: editingProject.link || null,
       display_order: editingProject.display_order || 0,
     };
+
     const response = await fetch(isNew ? "/api/projects" : `/api/projects/${editingProject.id}`, {
       method: isNew ? "POST" : "PUT",
       headers: {
@@ -121,7 +136,7 @@ function ProjectsTab() {
     });
 
     if (!response.ok) {
-      alert("Proje kaydedilemedi. Lütfen tekrar deneyin.");
+      alert("Proje kaydedilemedi. Lutfen tekrar deneyin.");
       return;
     }
 
@@ -131,64 +146,98 @@ function ProjectsTab() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Bu projeyi silmek istediğinize emin misiniz?")) return;
+    if (!confirm("Bu projeyi silmek istediginize emin misiniz?")) return;
+
     const response = await fetch(`/api/projects/${id}`, {
       method: "DELETE",
     });
 
     if (!response.ok) {
-      alert("Proje silinemedi. Lütfen tekrar deneyin.");
+      alert("Proje silinemedi. Lutfen tekrar deneyin.");
       return;
     }
 
     await fetchProjects();
   };
 
-  const inputClass = "w-full px-4 py-3 rounded-md bg-muted/40 border border-border text-foreground placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-colors";
+  const inputClass =
+    "w-full rounded-md border border-border bg-muted/40 px-4 py-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/60 focus:border-primary/60 focus:outline-none focus:ring-1 focus:ring-primary/30";
 
   return (
     <>
-      <div className="flex items-center justify-between mb-8">
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">Projeler</h1>
-          <p className="text-muted-foreground text-sm mt-1">Portfolyonuzdaki projeleri yönetin</p>
+          <p className="mt-1 text-sm text-muted-foreground">Portfolyonuzdaki projeleri yonetin</p>
         </div>
         <button
           onClick={() => {
-            setEditingProject({ title: "", description: "", long_description: "", status: "Yayında", tags: [], icon: "Globe", link: "", display_order: projects.length });
+            setEditingProject({
+              title: "",
+              description: "",
+              long_description: "",
+              status: "Yayında",
+              tags: [],
+              icon: "Globe",
+              link: "",
+              display_order: projects.length,
+            });
             setIsNew(true);
           }}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary-dark transition-colors"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-dark sm:w-auto"
         >
           <Plus size={16} /> Yeni Proje
         </button>
       </div>
 
-      {/* Edit Modal */}
       {editingProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-5">
-          <div className="w-full max-w-2xl rounded-lg border border-border bg-card p-6 space-y-5 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold">{isNew ? "Yeni Proje Ekle" : "Proje Düzenle"}</h2>
-              <button onClick={() => { setEditingProject(null); setIsNew(false); }} className="text-muted-foreground hover:text-foreground"><X size={20} /></button>
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-background/80 p-0 backdrop-blur-sm sm:items-center sm:p-5">
+          <div className="max-h-[94svh] w-full max-w-2xl space-y-5 overflow-y-auto rounded-t-2xl border border-border bg-card p-4 sm:max-h-[90vh] sm:rounded-lg sm:p-6">
+            <div className="flex items-start justify-between gap-3">
+              <h2 className="text-lg font-bold">{isNew ? "Yeni Proje Ekle" : "Proje Duzenle"}</h2>
+              <button onClick={() => { setEditingProject(null); setIsNew(false); }} className="text-muted-foreground hover:text-foreground">
+                <X size={20} />
+              </button>
             </div>
+
             <div className="grid gap-4">
               <div>
-                <label className="block text-sm font-medium mb-1.5">Proje Adı *</label>
-                <input className={inputClass} placeholder="Proje başlığı" value={editingProject.title || ""} onChange={(e) => setEditingProject({ ...editingProject, title: e.target.value })} />
+                <label className="mb-1.5 block text-sm font-medium">Proje Adi *</label>
+                <input
+                  className={inputClass}
+                  placeholder="Proje basligi"
+                  value={editingProject.title || ""}
+                  onChange={(e) => setEditingProject({ ...editingProject, title: e.target.value })}
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1.5">Kısa Açıklama *</label>
-                <textarea className={`${inputClass} resize-none`} rows={2} placeholder="Kart üzerinde görünecek kısa açıklama" value={editingProject.description || ""} onChange={(e) => setEditingProject({ ...editingProject, description: e.target.value })} />
+                <label className="mb-1.5 block text-sm font-medium">Kisa Aciklama *</label>
+                <textarea
+                  className={`${inputClass} resize-none`}
+                  rows={2}
+                  placeholder="Kart uzerinde gorunecek kisa aciklama"
+                  value={editingProject.description || ""}
+                  onChange={(e) => setEditingProject({ ...editingProject, description: e.target.value })}
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1.5">Detaylı Açıklama</label>
-                <textarea className={`${inputClass} resize-none`} rows={5} placeholder="Detaylı açıklama" value={editingProject.long_description || ""} onChange={(e) => setEditingProject({ ...editingProject, long_description: e.target.value })} />
+                <label className="mb-1.5 block text-sm font-medium">Detayli Aciklama</label>
+                <textarea
+                  className={`${inputClass} resize-none`}
+                  rows={5}
+                  placeholder="Detayli aciklama"
+                  value={editingProject.long_description || ""}
+                  onChange={(e) => setEditingProject({ ...editingProject, long_description: e.target.value })}
+                />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-sm font-medium mb-1.5">Durum</label>
-                  <select className={inputClass} value={editingProject.status || "Yayında"} onChange={(e) => setEditingProject({ ...editingProject, status: e.target.value })}>
+                  <label className="mb-1.5 block text-sm font-medium">Durum</label>
+                  <select
+                    className={inputClass}
+                    value={editingProject.status || "Yayında"}
+                    onChange={(e) => setEditingProject({ ...editingProject, status: e.target.value })}
+                  >
                     <option value="Yayında">Yayında</option>
                     <option value="Aktif">Aktif</option>
                     <option value="Geliştiriliyor">Geliştiriliyor</option>
@@ -196,60 +245,97 @@ function ProjectsTab() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1.5">Sıralama</label>
-                  <input type="number" className={inputClass} value={editingProject.display_order ?? 0} onChange={(e) => setEditingProject({ ...editingProject, display_order: parseInt(e.target.value) || 0 })} />
+                  <label className="mb-1.5 block text-sm font-medium">Siralama</label>
+                  <input
+                    type="number"
+                    className={inputClass}
+                    value={editingProject.display_order ?? 0}
+                    onChange={(e) => setEditingProject({ ...editingProject, display_order: parseInt(e.target.value, 10) || 0 })}
+                  />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1.5">Etiketler (virgülle ayırın)</label>
-                <input className={inputClass} placeholder="Next.js, React, Tailwind CSS" value={(editingProject.tags || []).join(", ")} onChange={(e) => setEditingProject({ ...editingProject, tags: e.target.value.split(",").map((t) => t.trim()).filter(Boolean) })} />
+                <label className="mb-1.5 block text-sm font-medium">Etiketler (virgulle ayirin)</label>
+                <input
+                  className={inputClass}
+                  placeholder="Next.js, React, Tailwind CSS"
+                  value={(editingProject.tags || []).join(", ")}
+                  onChange={(e) =>
+                    setEditingProject({
+                      ...editingProject,
+                      tags: e.target.value.split(",").map((tag) => tag.trim()).filter(Boolean),
+                    })
+                  }
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1.5">Proje Linki</label>
-                <input className={inputClass} placeholder="https://example.com" value={editingProject.link || ""} onChange={(e) => setEditingProject({ ...editingProject, link: e.target.value })} />
+                <label className="mb-1.5 block text-sm font-medium">Proje Linki</label>
+                <input
+                  className={inputClass}
+                  placeholder="https://example.com"
+                  value={editingProject.link || ""}
+                  onChange={(e) => setEditingProject({ ...editingProject, link: e.target.value })}
+                />
               </div>
             </div>
-            <div className="flex gap-3 pt-2">
-              <button onClick={handleSave} className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary-dark transition-colors">
+
+            <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row">
+              <button
+                onClick={handleSave}
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-dark"
+              >
                 <Save size={16} /> Kaydet
               </button>
-              <button onClick={() => { setEditingProject(null); setIsNew(false); }} className="px-6 py-3 rounded-md border border-border text-muted-foreground hover:text-foreground transition-colors text-sm">
-                İptal
+              <button
+                onClick={() => { setEditingProject(null); setIsNew(false); }}
+                className="rounded-md border border-border px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Iptal
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Projects List */}
       {projects.length === 0 ? (
-        <div className="text-center py-20 text-muted-foreground">
-          <p className="text-lg mb-2">Henüz proje eklenmemiş</p>
-          <p className="text-sm">Yukarıdaki &quot;Yeni Proje&quot; butonuna tıklayarak başlayın</p>
+        <div className="py-20 text-center text-muted-foreground">
+          <p className="mb-2 text-lg">Henuz proje eklenmemis</p>
+          <p className="text-sm">Yukaridaki "Yeni Proje" butonuna tiklayarak baslayin</p>
         </div>
       ) : (
         <div className="space-y-3">
           {projects.map((project) => (
-            <div key={project.id} className="flex items-center gap-4 p-4 rounded-lg border border-border bg-card/60 hover:border-primary/20 transition-colors">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3">
-                  <h3 className="font-semibold truncate">{project.title}</h3>
-                  <span className={`shrink-0 px-2 py-0.5 text-[10px] font-mono rounded-full border ${project.status === "Yayında" ? "border-accent-green/30 text-accent-green bg-accent-green/5" : "border-primary/30 text-primary bg-primary/5"}`}>
+            <div
+              key={project.id}
+              className="flex flex-col gap-4 rounded-lg border border-border bg-card/60 p-4 transition-colors hover:border-primary/20 sm:flex-row sm:items-center"
+            >
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                  <h3 className="truncate font-semibold">{project.title}</h3>
+                  <span
+                    className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-mono ${
+                      project.status === "Yayında"
+                        ? "border-accent-green/30 bg-accent-green/5 text-accent-green"
+                        : "border-primary/30 bg-primary/5 text-primary"
+                    }`}
+                  >
                     {project.status}
                   </span>
                 </div>
-                <p className="text-muted-foreground text-sm truncate mt-1">{project.description}</p>
-                <div className="flex flex-wrap gap-1 mt-2">
+                <p className="mt-1 truncate text-sm text-muted-foreground">{project.description}</p>
+                <div className="mt-2 flex flex-wrap gap-1">
                   {(project.tags || []).map((tag) => (
-                    <span key={tag} className="px-2 py-0.5 text-[10px] font-mono rounded border border-border bg-muted/40 text-muted-foreground">{tag}</span>
+                    <span key={tag} className="rounded border border-border bg-muted/40 px-2 py-0.5 text-[10px] font-mono text-muted-foreground">
+                      {tag}
+                    </span>
                   ))}
                 </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <button onClick={() => { setEditingProject(project); setIsNew(false); }} className="p-2 rounded-md hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors">
+              <div className="flex items-center gap-2 self-end shrink-0 sm:self-auto">
+                <button onClick={() => { setEditingProject(project); setIsNew(false); }} className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary">
                   <Pencil size={16} />
                 </button>
-                <button onClick={() => handleDelete(project.id)} className="p-2 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors">
+                <button onClick={() => handleDelete(project.id)} className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive">
                   <Trash2 size={16} />
                 </button>
               </div>
@@ -261,7 +347,6 @@ function ProjectsTab() {
   );
 }
 
-/* ── Messages Tab ── */
 function MessagesTab() {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [selectedMsg, setSelectedMsg] = useState<ContactMessage | null>(null);
@@ -273,9 +358,9 @@ function MessagesTab() {
     setMessages(data);
   }
 
-  // Initial data load is async and intentionally runs once on mount.
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { fetchMessages(); }, []);
+  useEffect(() => {
+    void fetchMessages();
+  }, []);
 
   const markAsRead = async (msg: ContactMessage) => {
     if (!msg.is_read) {
@@ -288,20 +373,22 @@ function MessagesTab() {
       });
 
       if (response.ok) {
-        setMessages((prev) => prev.map((m) => m.id === msg.id ? { ...m, is_read: true } : m));
+        setMessages((prev) => prev.map((item) => (item.id === msg.id ? { ...item, is_read: true } : item)));
       }
     }
+
     setSelectedMsg({ ...msg, is_read: true });
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Bu mesajı silmek istediğinize emin misiniz?")) return;
+    if (!confirm("Bu mesaji silmek istediginize emin misiniz?")) return;
+
     const response = await fetch(`/api/messages/${id}`, {
       method: "DELETE",
     });
 
     if (!response.ok) {
-      alert("Mesaj silinemedi. Lütfen tekrar deneyin.");
+      alert("Mesaj silinemedi. Lutfen tekrar deneyin.");
       return;
     }
 
@@ -312,56 +399,65 @@ function MessagesTab() {
   const typeLabels: Record<string, string> = {
     eticaret: "E-Ticaret Sitesi",
     kurumsal: "Kurumsal Web Sitesi",
-    admin: "Admin Panel / Yönetim Sistemi",
-    ozel: "Özel Yazılım Projesi",
-    diger: "Diğer",
+    admin: "Admin Panel / Yonetim Sistemi",
+    ozel: "Ozel Yazilim Projesi",
+    diger: "Diger",
   };
 
-  const unreadCount = messages.filter((m) => !m.is_read).length;
+  const unreadCount = messages.filter((message) => !message.is_read).length;
 
   return (
     <>
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Mesajlar</h1>
-        <p className="text-muted-foreground text-sm mt-1">
-          İletişim formundan gelen mesajlar {unreadCount > 0 && <span className="text-primary font-semibold">({unreadCount} okunmamış)</span>}
+        <p className="mt-1 text-sm text-muted-foreground">
+          Iletisim formundan gelen mesajlar{" "}
+          {unreadCount > 0 && <span className="font-semibold text-primary">({unreadCount} okunmamis)</span>}
         </p>
       </div>
 
-      {/* Message Detail Modal */}
       {selectedMsg && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-5">
-          <div className="w-full max-w-2xl rounded-lg border border-border bg-card p-6 space-y-5 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between">
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-background/80 p-0 backdrop-blur-sm sm:items-center sm:p-5">
+          <div className="max-h-[94svh] w-full max-w-2xl space-y-5 overflow-y-auto rounded-t-2xl border border-border bg-card p-4 sm:max-h-[90vh] sm:rounded-lg sm:p-6">
+            <div className="flex items-start justify-between gap-3">
               <h2 className="text-lg font-bold">{selectedMsg.name}</h2>
-              <button onClick={() => setSelectedMsg(null)} className="text-muted-foreground hover:text-foreground"><X size={20} /></button>
+              <button onClick={() => setSelectedMsg(null)} className="text-muted-foreground hover:text-foreground">
+                <X size={20} />
+              </button>
             </div>
+
             <div className="space-y-3 text-sm">
-              <div className="flex gap-2">
-                <span className="text-muted-foreground w-20 shrink-0">E-posta:</span>
-                <a href={`mailto:${selectedMsg.email}`} className="text-primary hover:underline">{selectedMsg.email}</a>
+              <div className="flex flex-col gap-1 sm:flex-row sm:gap-2">
+                <span className="w-20 shrink-0 text-muted-foreground">E-posta:</span>
+                <a href={`mailto:${selectedMsg.email}`} className="break-all text-primary hover:underline">
+                  {selectedMsg.email}
+                </a>
               </div>
-              <div className="flex gap-2">
-                <span className="text-muted-foreground w-20 shrink-0">Tür:</span>
-                <span>{selectedMsg.type ? (typeLabels[selectedMsg.type] || selectedMsg.type) : "Belirtilmemiş"}</span>
+              <div className="flex flex-col gap-1 sm:flex-row sm:gap-2">
+                <span className="w-20 shrink-0 text-muted-foreground">Tur:</span>
+                <span>{selectedMsg.type ? (typeLabels[selectedMsg.type] || selectedMsg.type) : "Belirtilmemis"}</span>
               </div>
-              <div className="flex gap-2">
-                <span className="text-muted-foreground w-20 shrink-0">Tarih:</span>
+              <div className="flex flex-col gap-1 sm:flex-row sm:gap-2">
+                <span className="w-20 shrink-0 text-muted-foreground">Tarih:</span>
                 <span>{new Date(selectedMsg.created_at).toLocaleString("tr-TR")}</span>
               </div>
-              <div className="pt-3 border-t border-border">
-                <p className="text-muted-foreground text-xs mb-2">Mesaj:</p>
-                <p className="text-foreground whitespace-pre-wrap leading-relaxed">{selectedMsg.detail}</p>
+              <div className="border-t border-border pt-3">
+                <p className="mb-2 text-xs text-muted-foreground">Mesaj:</p>
+                <p className="whitespace-pre-wrap leading-relaxed text-foreground">{selectedMsg.detail}</p>
               </div>
             </div>
-            <div className="flex gap-3 pt-2">
+
+            <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row">
               <a
                 href={`mailto:${selectedMsg.email}`}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary-dark transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-dark"
               >
-                <Mail size={16} /> Yanıtla
+                <Mail size={16} /> Yanitla
               </a>
-              <button onClick={() => setSelectedMsg(null)} className="px-6 py-3 rounded-md border border-border text-muted-foreground hover:text-foreground transition-colors text-sm">
+              <button
+                onClick={() => setSelectedMsg(null)}
+                className="rounded-md border border-border px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
                 Kapat
               </button>
             </div>
@@ -370,44 +466,44 @@ function MessagesTab() {
       )}
 
       {messages.length === 0 ? (
-        <div className="text-center py-20 text-muted-foreground">
+        <div className="py-20 text-center text-muted-foreground">
           <MessageSquare size={40} className="mx-auto mb-4 opacity-40" />
-          <p className="text-lg mb-2">Henüz mesaj yok</p>
-          <p className="text-sm">İletişim formundan gelen mesajlar burada görünecek</p>
+          <p className="mb-2 text-lg">Henuz mesaj yok</p>
+          <p className="text-sm">Iletisim formundan gelen mesajlar burada gorunecek</p>
         </div>
       ) : (
         <div className="space-y-3">
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex items-start gap-4 p-4 rounded-lg border transition-colors cursor-pointer ${
-                msg.is_read
-                  ? "border-border bg-card/40 hover:border-primary/20"
-                  : "border-primary/30 bg-primary/5 hover:border-primary/50"
+              className={`cursor-pointer rounded-lg border p-4 transition-colors ${
+                msg.is_read ? "border-border bg-card/40 hover:border-primary/20" : "border-primary/30 bg-primary/5 hover:border-primary/50"
               }`}
               onClick={() => markAsRead(msg)}
             >
-              <div className="mt-0.5">
-                {msg.is_read ? <MailOpen size={18} className="text-muted-foreground" /> : <Mail size={18} className="text-primary" />}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3">
-                  <h3 className={`font-semibold truncate ${!msg.is_read ? "text-foreground" : ""}`}>{msg.name}</h3>
-                  {!msg.is_read && <span className="shrink-0 w-2 h-2 rounded-full bg-primary" />}
-                  <span className="text-muted-foreground text-xs ml-auto shrink-0">
-                    {new Date(msg.created_at).toLocaleDateString("tr-TR")}
-                  </span>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+                <div className="mt-0.5">
+                  {msg.is_read ? <MailOpen size={18} className="text-muted-foreground" /> : <Mail size={18} className="text-primary" />}
                 </div>
-                <p className="text-muted-foreground text-xs mt-0.5">{msg.email}</p>
-                <p className="text-muted-foreground text-sm truncate mt-1">{msg.detail}</p>
-              </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <button onClick={(e) => { e.stopPropagation(); markAsRead(msg); }} className="p-2 rounded-md hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors">
-                  <Eye size={16} />
-                </button>
-                <button onClick={(e) => { e.stopPropagation(); handleDelete(msg.id); }} className="p-2 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors">
-                  <Trash2 size={16} />
-                </button>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <h3 className={`truncate font-semibold ${!msg.is_read ? "text-foreground" : ""}`}>{msg.name}</h3>
+                    {!msg.is_read && <span className="h-2 w-2 shrink-0 rounded-full bg-primary" />}
+                    <span className="w-full shrink-0 text-xs text-muted-foreground sm:ml-auto sm:w-auto">
+                      {new Date(msg.created_at).toLocaleDateString("tr-TR")}
+                    </span>
+                  </div>
+                  <p className="mt-0.5 break-all text-xs text-muted-foreground sm:break-normal">{msg.email}</p>
+                  <p className="mt-1 truncate text-sm text-muted-foreground">{msg.detail}</p>
+                </div>
+                <div className="flex items-center gap-2 self-end shrink-0 sm:self-auto">
+                  <button onClick={(e) => { e.stopPropagation(); markAsRead(msg); }} className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary">
+                    <Eye size={16} />
+                  </button>
+                  <button onClick={(e) => { e.stopPropagation(); handleDelete(msg.id); }} className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive">
+                    <Trash2 size={16} />
+                  </button>
+                </div>
               </div>
             </div>
           ))}

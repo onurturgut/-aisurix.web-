@@ -113,6 +113,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
   }
   html {
     scroll-behavior: smooth;
@@ -210,4 +211,9 @@
 @keyframes modalContentOut {
   from { opacity: 1; transform: scale(1) translateY(0); }
   to { opacity: 0; transform: scale(0.92) translateY(20px); }
+}
+
+.safe-fab {
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  right: max(1rem, env(safe-area-inset-right));
 }

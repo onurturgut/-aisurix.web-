@@ -39,8 +39,8 @@ export default function AdminLogin({ initialSession }: { initialSession?: AuthSe
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-5">
-      <div className="w-full max-w-md space-y-8">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-8 sm:px-5">
+      <div className="w-full max-w-md space-y-6 sm:space-y-8">
         <div className="text-center">
           <div className="flex items-center justify-center gap-1 mb-6">
             <span className="text-primary font-mono text-xl font-bold opacity-70">&lt;</span>
@@ -51,7 +51,7 @@ export default function AdminLogin({ initialSession }: { initialSession?: AuthSe
           <p className="text-muted-foreground text-sm mt-2">Yönetim paneline erişmek için giriş yapın</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5 p-6 rounded-lg border border-border bg-card/60">
+        <form onSubmit={handleSubmit} className="space-y-5 rounded-lg border border-border bg-card/60 p-5 sm:p-6">
           {error && (
             <div className="p-3 rounded-md bg-destructive/10 border border-destructive/30 text-destructive text-sm">
               {error}

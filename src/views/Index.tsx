@@ -163,10 +163,10 @@ function Header({ active }: { active: string }) {
           : "bg-background/40 backdrop-blur-md border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <button onClick={() => scrollTo("#hero")} className="flex items-center gap-1 group">
+      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+        <button onClick={() => scrollTo("#hero")} className="group flex min-w-0 items-center gap-1">
           <span className="text-primary font-mono text-lg font-bold opacity-70 group-hover:opacity-100 transition-opacity">&lt;</span>
-          <span className="text-foreground font-bold text-lg tracking-tight">aisurix.web</span>
+          <span className="truncate text-base font-bold tracking-tight text-foreground sm:text-lg">aisurix.web</span>
           <span className="text-primary font-mono text-lg font-bold opacity-70 group-hover:opacity-100 transition-opacity">/&gt;</span>
         </button>
 
@@ -193,10 +193,10 @@ function Header({ active }: { active: string }) {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <button
             onClick={() => setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"))}
-            className="rounded-md border border-border p-2.5 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
             aria-label="Tema değiştir"
           >
             <span className="block dark:hidden">
@@ -214,7 +214,7 @@ function Header({ active }: { active: string }) {
           </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 text-foreground md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground md:hidden"
             aria-label="Menüyü aç"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -223,7 +223,7 @@ function Header({ active }: { active: string }) {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-border bg-background/95 px-4 pb-5 backdrop-blur-xl sm:px-6 md:hidden">
+        <div className="max-h-[calc(100svh-4.75rem)] overflow-y-auto border-t border-border bg-background/95 px-4 pb-5 backdrop-blur-xl sm:px-6 md:hidden">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.href}
@@ -250,25 +250,25 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center overflow-hidden pt-24 pb-14 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-24"
+      className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-24"
     >
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[12%] left-[8%] h-[420px] w-[420px] rounded-full bg-primary/8 blur-[120px] animate-float-slow sm:h-[520px] sm:w-[520px]" />
-        <div className="absolute right-[4%] bottom-[10%] h-[360px] w-[360px] rounded-full bg-secondary/8 blur-[120px] animate-float-slow-reverse sm:h-[440px] sm:w-[440px]" />
+        <div className="absolute top-[10%] left-[-10%] h-[280px] w-[280px] rounded-full bg-primary/8 blur-[90px] animate-float-slow sm:left-[8%] sm:h-[520px] sm:w-[520px] sm:blur-[120px]" />
+        <div className="absolute bottom-[6%] right-[-12%] h-[240px] w-[240px] rounded-full bg-secondary/8 blur-[90px] animate-float-slow-reverse sm:right-[4%] sm:bottom-[10%] sm:h-[440px] sm:w-[440px] sm:blur-[120px]" />
       </div>
 
       <div className="relative mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:gap-14 xl:gap-20">
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:gap-14 xl:gap-20">
           <div className="space-y-6 sm:space-y-8 lg:space-y-10">
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-accent-green/30 bg-accent-green/5 px-4 py-2 sm:px-5 sm:py-2.5">
+            <div className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-accent-green/30 bg-accent-green/5 px-3 py-2 sm:px-5 sm:py-2.5">
               <span className="h-2.5 w-2.5 rounded-full bg-accent-green animate-pulse-glow" />
-              <span className="text-xs font-bold uppercase tracking-[0.24em] text-accent-green sm:text-sm">
+              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-accent-green sm:text-sm sm:tracking-[0.24em]">
                 Projeler İçin Uygun
               </span>
             </div>
 
             <div className="space-y-4 sm:space-y-6">
-              <h1 className="max-w-5xl text-4xl font-black leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl xl:text-[7.25rem]">
+              <h1 className="max-w-5xl text-[clamp(2.6rem,11vw,4.4rem)] font-black leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl xl:text-[7.25rem]">
                 Full-Stack Developer &{" "}
                 <span className="bg-gradient-to-r from-primary via-accent-green to-primary bg-clip-text text-transparent">
                   Web Yazılım Uzmanı
@@ -282,7 +282,7 @@ function Hero() {
             </div>
 
             <div className="w-full overflow-hidden rounded-2xl border border-border/60 bg-card/50 backdrop-blur-sm lg:max-w-4xl">
-              <pre className="overflow-x-auto px-5 py-5 text-sm leading-7 sm:px-6 sm:py-6 sm:text-base sm:leading-8">
+              <pre className="overflow-x-auto px-4 py-4 text-[13px] leading-6 sm:px-6 sm:py-6 sm:text-base sm:leading-8">
                 <code>
                   <span className="syn-keyword">const</span> <span className="text-foreground">developer</span> <span className="text-muted-foreground">=</span> <span className="syn-bracket">{"{"}</span>{"\n"}
                   {"  "}<span className="syn-property">name</span><span className="text-muted-foreground">:</span> <span className="syn-string">&quot;Onur Turgut&quot;</span><span className="text-muted-foreground">,</span>{"\n"}
@@ -294,16 +294,16 @@ function Hero() {
               </pre>
             </div>
 
-            <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap sm:gap-4">
+            <div className="flex flex-col items-stretch gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <button
                 onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex min-h-14 items-center justify-center gap-2.5 rounded-md bg-gradient-to-r from-primary to-accent-green px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90 sm:px-8"
+                className="inline-flex min-h-14 w-full items-center justify-center gap-2.5 rounded-md bg-gradient-to-r from-primary to-accent-green px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto sm:px-8"
               >
                 Projelerimi İncele <ArrowRight size={18} />
               </button>
               <button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-md border border-primary/50 px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary transition-colors hover:bg-primary/10 sm:px-8"
+                className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-md border border-primary/50 px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary transition-colors hover:bg-primary/10 sm:w-auto sm:px-8"
               >
                 Benimle İletişime Geç
               </button>
@@ -311,22 +311,22 @@ function Hero() {
             </div>
           </div>
 
-          <div className="fade-in-section lg:justify-self-end">
-            <div className="relative overflow-hidden rounded-[28px] border border-primary/20 bg-[#0f172fcc] shadow-[0_24px_80px_hsl(187_100%_50%/0.08)] backdrop-blur-xl">
+          <div className="fade-in-section mx-auto w-full max-w-[34rem] lg:justify-self-end">
+            <div className="relative overflow-hidden rounded-[24px] border border-primary/20 bg-[#0f172fcc] shadow-[0_24px_80px_hsl(187_100%_50%/0.08)] backdrop-blur-xl sm:rounded-[28px]">
               <div className="flex items-center justify-between border-b border-white/10 px-5 py-4 sm:px-6">
                 <div className="flex items-center gap-2">
                   <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
                   <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
                   <span className="h-3 w-3 rounded-full bg-[#28c840]" />
                 </div>
-                <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.2em] text-primary/80">
+                <div className="ml-4 flex max-w-[calc(100%-5rem)] items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.16em] text-primary/80 sm:text-[11px] sm:tracking-[0.2em]">
                   <Code2 size={14} />
-                  profile.ts
+                  <span className="truncate">profile.ts</span>
                 </div>
               </div>
 
               <div className="overflow-x-auto px-5 py-5 sm:px-6 sm:py-6">
-                <pre className="min-w-[300px] text-sm leading-7 sm:text-[15px] sm:leading-8">
+                <pre className="min-w-[260px] text-[13px] leading-6 sm:min-w-[300px] sm:text-[15px] sm:leading-8">
                   <code className="font-mono">
                     <span className="syn-keyword">export const</span>{" "}
                     <span className="text-foreground">developerProfile</span>{" "}
@@ -420,10 +420,10 @@ function About() {
           <h2 className="text-3xl sm:text-4xl font-bold">Ben Kimim</h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-14 items-start">
+        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Left: text + stats */}
-          <div className="space-y-8 fade-in-section">
-            <div className="space-y-5 text-muted-foreground leading-relaxed text-[15px]">
+          <div className="space-y-6 fade-in-section sm:space-y-8">
+            <div className="space-y-5 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
               <p>
                 Ben <span className="text-foreground font-semibold">Onur Turgut</span>.
                 İşletmelere özel web tabanlı yazılım çözümleri geliştiren bir full-stack geliştiriciyim.
@@ -441,7 +441,7 @@ function About() {
           </div>
 
           {/* Right: skill cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 fade-in-section">
+          <div className="grid grid-cols-1 gap-4 fade-in-section sm:grid-cols-2">
             {SKILLS.map((skill) => {
               const Icon = skill.icon;
               return (
@@ -507,23 +507,23 @@ function ProjectModal({ project, onClose }: { project: typeof FALLBACK_PROJECTS[
   }, [handleClose]);
 
   return (
-    <div
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-5 transition-all duration-300 ${
-        isClosing ? "bg-background/0 backdrop-blur-0" : "bg-background/80 backdrop-blur-sm"
-      }`}
+      <div
+        className={`fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-5 transition-all duration-300 ${
+          isClosing ? "bg-background/0 backdrop-blur-0" : "bg-background/80 backdrop-blur-sm"
+        }`}
       style={{ animation: isClosing ? undefined : "modalOverlayIn 0.3s ease-out" }}
       onClick={handleClose}
     >
       <div
-        className={`w-full max-w-2xl rounded-lg border bg-card p-5 sm:p-8 space-y-5 max-h-[85vh] overflow-y-auto shadow-[0_20px_60px_hsl(187_100%_50%/0.1),0_0_40px_hsl(0_0%_0%/0.3)] ${
+        className={`w-full max-w-2xl rounded-t-2xl border bg-card p-4 sm:max-h-[85vh] sm:rounded-lg sm:p-8 space-y-5 max-h-[92svh] overflow-y-auto shadow-[0_20px_60px_hsl(187_100%_50%/0.1),0_0_40px_hsl(0_0%_0%/0.3)] ${
           isClosing
             ? "border-border animate-[modalContentOut_0.25s_ease-in_forwards]"
             : "border-primary/20 animate-[modalContentIn_0.35s_ease-out]"
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex min-w-0 items-start gap-3">
             {(() => {
               const Icon = ICON_MAP[project.icon || "Globe"] || Globe;
               return (
@@ -532,8 +532,8 @@ function ProjectModal({ project, onClose }: { project: typeof FALLBACK_PROJECTS[
                 </div>
               );
             })()}
-            <div>
-              <h2 className="text-xl font-bold">{project.title}</h2>
+            <div className="min-w-0">
+              <h2 className="text-lg font-bold sm:text-xl">{project.title}</h2>
               <span className={`inline-block mt-1 px-2.5 py-0.5 text-[10px] font-mono rounded-full border ${
                 project.status === "Yayında"
                   ? "border-accent-green/30 text-accent-green bg-accent-green/5"
@@ -570,7 +570,7 @@ function ProjectModal({ project, onClose }: { project: typeof FALLBACK_PROJECTS[
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary-dark transition-colors"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-dark sm:w-auto"
           >
             Siteyi Ziyaret Et <ExternalLink size={14} />
           </a>
@@ -715,7 +715,7 @@ function Contact() {
   return (
     <section id="contact" className="py-24 lg:py-32 relative">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-14">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Left info */}
           <div className="space-y-8 fade-in-section">
             <div>
@@ -740,12 +740,12 @@ function Contact() {
                 return (
                   <div
                     key={item.label}
-                    className="flex items-center gap-4 p-4 rounded-lg border border-border bg-card/60 hover:border-primary/30 transition-colors"
+                    className="flex items-start gap-4 rounded-lg border border-border bg-card/60 p-4 transition-colors hover:border-primary/30 sm:items-center"
                   >
                     <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center">
                       <Icon size={18} className="text-primary" />
                     </div>
-                    <span className="text-sm text-foreground">{item.label}</span>
+                    <span className="break-words text-sm text-foreground">{item.label}</span>
                   </div>
                 );
               })}
@@ -754,7 +754,7 @@ function Contact() {
 
           {/* Right form */}
           <div className="fade-in-section">
-            <form onSubmit={handleSubmit} className="space-y-5 p-6 sm:p-8 rounded-lg border border-border bg-card/60">
+            <form onSubmit={handleSubmit} className="space-y-5 rounded-lg border border-border bg-card/60 p-5 sm:p-8">
               <div>
                 <label className="block text-sm font-medium mb-2 text-foreground">Ad Soyad</label>
                 <input
@@ -830,7 +830,7 @@ function Footer() {
   return (
     <footer className="border-t border-border bg-card/30 py-16">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="mb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-1">
@@ -903,10 +903,10 @@ function WhatsAppButton() {
       href="https://wa.me/905335994736"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+      className="safe-fab fixed z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] shadow-lg transition-transform hover:scale-110 sm:h-14 sm:w-14"
       aria-label="WhatsApp"
     >
-      <svg viewBox="0 0 24 24" fill="white" className="w-7 h-7">
+      <svg viewBox="0 0 24 24" fill="white" className="h-6 w-6 sm:h-7 sm:w-7">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
       </svg>
     </a>
