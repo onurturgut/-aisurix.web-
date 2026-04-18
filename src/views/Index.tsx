@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { InstallPrompt } from "@/components/install-prompt";
 import { useTheme } from "@/components/theme-provider";
+import { useIsMobile } from "@/hooks/use-mobile";
 import type { Project } from "@/types/data";
 import {
   Code2, Monitor, Server, Database, Wrench,
@@ -247,6 +248,23 @@ function Header({ active }: { active: string }) {
 
 /* ── Hero ── */
 function Hero() {
+  const isMobile = useIsMobile();
+  const heroStack = isMobile ? TECH_BADGES.slice(0, 4) : TECH_BADGES;
+  const heroFeatures = isMobile
+    ? [
+        "Mobil oncelikli ve hizli arayuzler",
+        "Yonetilebilir panel odakli sistemler",
+      ]
+    : [
+        "Mobil öncelikli, hızlı ve SEO uyumlu arayüzler",
+        "Yönetim panelli, ölçeklenebilir iş odaklı sistemler",
+        "Bakımı kolay, modern ve performans odaklı kod yapısı",
+      ];
+  const heroSummary = isMobile
+    ? "Modern, hizli ve yonetilebilir cozumler"
+    : "Modern, yönetilebilir ve hızlı çözümler";
+  const heroStats = isMobile ? STATS.slice(0, 3) : STATS;
+
   return (
     <section
       id="hero"
@@ -275,14 +293,14 @@ function Hero() {
                 </span>
               </h1>
 
-              <p className="max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:text-[1.35rem]">
+              <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-lg lg:text-[1.35rem]">
                 İşletmelere özel, yüksek performanslı web uygulamaları geliştiriyorum.
                 React, Node.js, TypeScript ve bulut altyapıları konusunda uzmanım.
               </p>
             </div>
 
             <div className="w-full overflow-hidden rounded-2xl border border-border/60 bg-card/50 backdrop-blur-sm lg:max-w-4xl">
-              <pre className="overflow-x-auto px-4 py-4 text-[13px] leading-6 sm:px-6 sm:py-6 sm:text-base sm:leading-8">
+              <pre className="overflow-x-auto px-3 py-3 text-[11px] leading-5 sm:px-6 sm:py-6 sm:text-base sm:leading-8">
                 <code>
                   <span className="syn-keyword">const</span> <span className="text-foreground">developer</span> <span className="text-muted-foreground">=</span> <span className="syn-bracket">{"{"}</span>{"\n"}
                   {"  "}<span className="syn-property">name</span><span className="text-muted-foreground">:</span> <span className="syn-string">&quot;Onur Turgut&quot;</span><span className="text-muted-foreground">,</span>{"\n"}
@@ -297,13 +315,13 @@ function Hero() {
             <div className="flex flex-col items-stretch gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <button
                 onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex min-h-14 w-full items-center justify-center gap-2.5 rounded-md bg-gradient-to-r from-primary to-accent-green px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto sm:px-8"
+                className="inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-md bg-gradient-to-r from-primary to-accent-green px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary-foreground transition-opacity hover:opacity-90 sm:min-h-14 sm:w-auto sm:px-8 sm:py-4 sm:text-sm sm:tracking-wider"
               >
                 Projelerimi İncele <ArrowRight size={18} />
               </button>
               <button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-md border border-primary/50 px-6 py-4 text-sm font-bold uppercase tracking-wider text-primary transition-colors hover:bg-primary/10 sm:w-auto sm:px-8"
+                className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-primary/50 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary transition-colors hover:bg-primary/10 sm:min-h-14 sm:w-auto sm:px-8 sm:py-4 sm:text-sm sm:tracking-wider"
               >
                 Benimle İletişime Geç
               </button>
@@ -311,9 +329,9 @@ function Hero() {
             </div>
           </div>
 
-          <div className="fade-in-section mx-auto w-full max-w-[34rem] lg:justify-self-end">
-            <div className="relative overflow-hidden rounded-[24px] border border-primary/20 bg-[#0f172fcc] shadow-[0_24px_80px_hsl(187_100%_50%/0.08)] backdrop-blur-xl sm:rounded-[28px]">
-              <div className="flex items-center justify-between border-b border-white/10 px-5 py-4 sm:px-6">
+          <div className="mx-auto w-full max-w-[34rem] lg:justify-self-end">
+            <div className="relative overflow-hidden rounded-[22px] border border-primary/20 bg-[#0f172fcc] shadow-[0_24px_80px_hsl(187_100%_50%/0.08)] backdrop-blur-xl sm:rounded-[28px]">
+              <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-6 sm:py-4">
                 <div className="flex items-center gap-2">
                   <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
                   <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
@@ -325,8 +343,8 @@ function Hero() {
                 </div>
               </div>
 
-              <div className="overflow-x-auto px-5 py-5 sm:px-6 sm:py-6">
-                <pre className="min-w-[260px] text-[13px] leading-6 sm:min-w-[300px] sm:text-[15px] sm:leading-8">
+              <div className="overflow-auto px-4 py-4 sm:px-6 sm:py-6">
+                <pre className="min-w-0 max-h-[18.5rem] text-[11px] leading-5 sm:max-h-none sm:min-w-[300px] sm:text-[15px] sm:leading-8">
                   <code className="font-mono">
                     <span className="syn-keyword">export const</span>{" "}
                     <span className="text-foreground">developerProfile</span>{" "}
@@ -336,7 +354,7 @@ function Hero() {
                     {"  "}
                     <span className="syn-property">summary</span>
                     <span className="text-muted-foreground">:</span>{" "}
-                    <span className="syn-string">&quot;Modern, yönetilebilir ve hızlı çözümler&quot;</span>
+                    <span className="syn-string">&quot;{heroSummary}&quot;</span>
                     <span className="text-muted-foreground">,</span>
                     {"\n"}
                     {"  "}
@@ -344,7 +362,7 @@ function Hero() {
                     <span className="text-muted-foreground">:</span>{" "}
                     <span className="syn-bracket">{"{"}</span>
                     {"\n"}
-                    {STATS.map((item, index) => (
+                    {heroStats.map((item, index) => (
                       <span key={item.label}>
                         {"    "}
                         <span className="syn-property">{item.label.toLowerCase().replaceAll(" ", "_")}</span>
@@ -363,11 +381,11 @@ function Hero() {
                     <span className="text-muted-foreground">:</span>{" "}
                     <span className="syn-bracket">[</span>
                     {"\n"}
-                    {TECH_BADGES.map((badge, index) => (
+                    {heroStack.map((badge, index) => (
                       <span key={badge}>
                         {"    "}
                         <span className="syn-string">&quot;{badge}&quot;</span>
-                        <span className="text-muted-foreground">{index === TECH_BADGES.length - 1 ? "" : ","}</span>
+                        <span className="text-muted-foreground">{index === heroStack.length - 1 ? "" : ","}</span>
                         {"\n"}
                       </span>
                     ))}
@@ -380,11 +398,7 @@ function Hero() {
                     <span className="text-muted-foreground">:</span>{" "}
                     <span className="syn-bracket">[</span>
                     {"\n"}
-                    {[
-                      "Mobil öncelikli, hızlı ve SEO uyumlu arayüzler",
-                      "Yönetim panelli, ölçeklenebilir iş odaklı sistemler",
-                      "Bakımı kolay, modern ve performans odaklı kod yapısı",
-                    ].map((item, index, array) => (
+                    {heroFeatures.map((item, index, array) => (
                       <span key={item}>
                         {"    "}
                         <span className="syn-string">&quot;{item}&quot;</span>
