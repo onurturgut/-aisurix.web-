@@ -268,7 +268,7 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-24"
+      className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-12 max-[400px]:pt-24 max-[400px]:pb-8 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-24"
     >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[10%] left-[-10%] h-[280px] w-[280px] rounded-full bg-primary/8 blur-[90px] animate-float-slow sm:left-[8%] sm:h-[520px] sm:w-[520px] sm:blur-[120px]" />
@@ -276,8 +276,8 @@ function Hero() {
       </div>
 
       <div className="relative mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:gap-14 xl:gap-20">
-          <div className="space-y-6 sm:space-y-8 lg:space-y-10">
+        <div className="grid items-center gap-8 max-[400px]:gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:gap-14 xl:gap-20">
+          <div className="space-y-6 max-[400px]:space-y-4 sm:space-y-8 lg:space-y-10">
             <div className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-accent-green/30 bg-accent-green/5 px-3 py-2 sm:px-5 sm:py-2.5">
               <span className="h-2.5 w-2.5 rounded-full bg-accent-green animate-pulse-glow" />
               <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-accent-green sm:text-sm sm:tracking-[0.24em]">
@@ -285,21 +285,21 @@ function Hero() {
               </span>
             </div>
 
-            <div className="space-y-4 sm:space-y-6">
-              <h1 className="max-w-5xl text-[clamp(2.6rem,11vw,4.4rem)] font-black leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl xl:text-[7.25rem]">
+            <div className="space-y-4 max-[400px]:space-y-3 sm:space-y-6">
+              <h1 className="max-w-5xl text-[clamp(2.6rem,11vw,4.4rem)] font-black leading-[0.98] tracking-tight max-[400px]:text-[2.3rem] max-[400px]:leading-[0.94] sm:text-6xl lg:text-7xl xl:text-[7.25rem]">
                 Full-Stack Developer &{" "}
                 <span className="bg-gradient-to-r from-primary via-accent-green to-primary bg-clip-text text-transparent">
                   Web Yazılım Uzmanı
                 </span>
               </h1>
 
-              <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-lg lg:text-[1.35rem]">
+              <p className="max-w-3xl text-sm leading-relaxed text-muted-foreground max-[400px]:text-[13px] max-[400px]:leading-5 sm:text-lg lg:text-[1.35rem]">
                 İşletmelere özel, yüksek performanslı web uygulamaları geliştiriyorum.
                 React, Node.js, TypeScript ve bulut altyapıları konusunda uzmanım.
               </p>
             </div>
 
-            <div className="w-full overflow-hidden rounded-2xl border border-border/60 bg-card/50 backdrop-blur-sm lg:max-w-4xl">
+            <div className="w-full overflow-hidden rounded-2xl border border-border/60 bg-card/50 backdrop-blur-sm max-[400px]:hidden lg:max-w-4xl">
               <pre className="overflow-x-auto px-3 py-3 text-[11px] leading-5 sm:px-6 sm:py-6 sm:text-base sm:leading-8">
                 <code>
                   <span className="syn-keyword">const</span> <span className="text-foreground">developer</span> <span className="text-muted-foreground">=</span> <span className="syn-bracket">{"{"}</span>{"\n"}
@@ -312,16 +312,16 @@ function Hero() {
               </pre>
             </div>
 
-            <div className="flex flex-col items-stretch gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+            <div className="flex flex-col items-stretch gap-3 pt-1 max-[400px]:gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <button
                 onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-md bg-gradient-to-r from-primary to-accent-green px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary-foreground transition-opacity hover:opacity-90 sm:min-h-14 sm:w-auto sm:px-8 sm:py-4 sm:text-sm sm:tracking-wider"
+                className="inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-md bg-gradient-to-r from-primary to-accent-green px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary-foreground transition-opacity hover:opacity-90 max-[400px]:min-h-10 max-[400px]:px-4 max-[400px]:py-2.5 max-[400px]:text-[10px] max-[400px]:tracking-[0.12em] sm:min-h-14 sm:w-auto sm:px-8 sm:py-4 sm:text-sm sm:tracking-wider"
               >
                 Projelerimi İncele <ArrowRight size={18} />
               </button>
               <button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-primary/50 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary transition-colors hover:bg-primary/10 sm:min-h-14 sm:w-auto sm:px-8 sm:py-4 sm:text-sm sm:tracking-wider"
+                className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-primary/50 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary transition-colors hover:bg-primary/10 max-[400px]:min-h-10 max-[400px]:px-4 max-[400px]:py-2.5 max-[400px]:text-[10px] max-[400px]:tracking-[0.12em] sm:min-h-14 sm:w-auto sm:px-8 sm:py-4 sm:text-sm sm:tracking-wider"
               >
                 Benimle İletişime Geç
               </button>
@@ -330,21 +330,21 @@ function Hero() {
           </div>
 
           <div className="mx-auto w-full max-w-[34rem] lg:justify-self-end">
-            <div className="relative overflow-hidden rounded-[22px] border border-primary/20 bg-[#0f172fcc] shadow-[0_24px_80px_hsl(187_100%_50%/0.08)] backdrop-blur-xl sm:rounded-[28px]">
-              <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-6 sm:py-4">
+            <div className="relative overflow-hidden rounded-[22px] border border-primary/20 bg-[#0f172fcc] shadow-[0_24px_80px_hsl(187_100%_50%/0.08)] backdrop-blur-xl max-[400px]:rounded-[18px] sm:rounded-[28px]">
+              <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 max-[400px]:px-3 max-[400px]:py-2.5 sm:px-6 sm:py-4">
                 <div className="flex items-center gap-2">
                   <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
                   <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
                   <span className="h-3 w-3 rounded-full bg-[#28c840]" />
                 </div>
-                <div className="ml-4 flex max-w-[calc(100%-5rem)] items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.16em] text-primary/80 sm:text-[11px] sm:tracking-[0.2em]">
+                <div className="ml-4 flex max-w-[calc(100%-5rem)] items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.16em] text-primary/80 max-[400px]:ml-2 max-[400px]:gap-1 max-[400px]:px-2 max-[400px]:text-[9px] sm:text-[11px] sm:tracking-[0.2em]">
                   <Code2 size={14} />
                   <span className="truncate">profile.ts</span>
                 </div>
               </div>
 
-              <div className="overflow-auto px-4 py-4 sm:px-6 sm:py-6">
-                <pre className="min-w-0 max-h-[18.5rem] text-[11px] leading-5 sm:max-h-none sm:min-w-[300px] sm:text-[15px] sm:leading-8">
+              <div className="overflow-auto px-4 py-4 max-[400px]:px-3 max-[400px]:py-3 sm:px-6 sm:py-6">
+                <pre className="min-w-0 max-h-[18.5rem] text-[11px] leading-5 max-[400px]:max-h-[13.25rem] max-[400px]:text-[10px] max-[400px]:leading-4 sm:max-h-none sm:min-w-[300px] sm:text-[15px] sm:leading-8">
                   <code className="font-mono">
                     <span className="syn-keyword">export const</span>{" "}
                     <span className="text-foreground">developerProfile</span>{" "}

@@ -70,7 +70,7 @@ export function InstallPrompt() {
     return (
       <button
         onClick={() => void handleInstall()}
-        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 sm:w-auto"
+        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 max-[400px]:min-h-10 max-[400px]:px-4 max-[400px]:py-2.5 max-[400px]:text-[11px] sm:w-auto"
       >
         <Download size={16} className="text-primary" />
         Uygulamayi Yukle
@@ -80,7 +80,7 @@ export function InstallPrompt() {
 
   if (isIos) {
     return (
-      <div className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-3 text-left text-sm text-muted-foreground sm:w-auto">
+      <div className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-3 text-left text-sm text-muted-foreground max-[400px]:min-h-10 max-[400px]:px-3 max-[400px]:py-2.5 max-[400px]:text-[11px] sm:w-auto">
         <Share2 size={16} className="shrink-0 text-primary" />
         <span>iPhone’da Paylaş menüsünden “Ana Ekrana Ekle” ile yükleyebilirsin.</span>
       </div>
