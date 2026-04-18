@@ -158,17 +158,17 @@ function Header({ active }: { active: string }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-500 ${
         scrolled
           ? "bg-background/90 backdrop-blur-xl border-b border-primary/20 shadow-[0_4px_30px_hsl(187_100%_50%/0.06)]"
           : "bg-background/40 backdrop-blur-md border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-3 px-4 py-2.5 sm:px-6 sm:py-4 lg:px-8">
         <button onClick={() => scrollTo("#hero")} className="group flex min-w-0 items-center gap-1">
-          <span className="text-primary font-mono text-lg font-bold opacity-70 group-hover:opacity-100 transition-opacity">&lt;</span>
-          <span className="truncate text-base font-bold tracking-tight text-foreground sm:text-lg">aisurix.web</span>
-          <span className="text-primary font-mono text-lg font-bold opacity-70 group-hover:opacity-100 transition-opacity">/&gt;</span>
+          <span className="text-primary font-mono text-base font-bold opacity-70 transition-opacity group-hover:opacity-100 sm:text-lg">&lt;</span>
+          <span className="truncate text-[15px] font-bold tracking-tight text-foreground sm:text-lg">aisurix.web</span>
+          <span className="text-primary font-mono text-base font-bold opacity-70 transition-opacity group-hover:opacity-100 sm:text-lg">/&gt;</span>
         </button>
 
         <nav className="hidden md:flex items-center gap-1">
@@ -197,7 +197,7 @@ function Header({ active }: { active: string }) {
         <div className="flex shrink-0 items-center gap-2">
           <button
             onClick={() => setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"))}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary sm:h-11 sm:w-11"
             aria-label="Tema değiştir"
           >
             <span className="block dark:hidden">
@@ -215,7 +215,7 @@ function Header({ active }: { active: string }) {
           </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground sm:h-11 sm:w-11 md:hidden"
             aria-label="Menüyü aç"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -224,7 +224,7 @@ function Header({ active }: { active: string }) {
       </div>
 
       {mobileOpen && (
-        <div className="max-h-[calc(100svh-4.75rem)] overflow-y-auto border-t border-border bg-background/95 px-4 pb-5 backdrop-blur-xl sm:px-6 md:hidden">
+        <div className="max-h-[calc(100svh-4.25rem)] overflow-y-auto border-t border-border bg-background/95 px-4 pb-5 backdrop-blur-xl sm:px-6 md:hidden">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.href}
@@ -268,7 +268,7 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-12 max-[400px]:pt-24 max-[400px]:pb-8 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-24"
+      className="relative flex min-h-[100svh] items-center overflow-hidden pt-24 pb-12 max-[400px]:pt-20 max-[400px]:pb-8 sm:pt-24 sm:pb-16 md:pt-28 lg:pt-32 lg:pb-24"
     >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[10%] left-[-10%] h-[280px] w-[280px] rounded-full bg-primary/8 blur-[90px] animate-float-slow sm:left-[8%] sm:h-[520px] sm:w-[520px] sm:blur-[120px]" />
