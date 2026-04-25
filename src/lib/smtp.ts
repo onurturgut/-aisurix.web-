@@ -4,6 +4,7 @@ import tls from "node:tls";
 type ContactEmailInput = {
   name: string;
   email: string;
+  phone: string;
   type?: string | null;
   detail: string;
 };
@@ -134,7 +135,7 @@ function getSmtpConfig(): SmtpConfig {
   const pass = process.env.SMTP_PASS?.trim();
   const fromEmail = process.env.SMTP_FROM_EMAIL?.trim() || user;
   const fromName = process.env.SMTP_FROM_NAME?.trim() || "aisurix.web";
-  const toEmails = (process.env.CONTACT_TO_EMAIL || process.env.ADMIN_EMAIL || "")
+  const toEmails = (process.env.CONTACT_TO_EMAIL || "")
     .split(",")
     .map((value) => value.trim())
     .filter(Boolean);
@@ -175,6 +176,7 @@ function buildMessage(config: SmtpConfig, input: ContactEmailInput) {
     "",
     `Ad Soyad: ${input.name}`,
     `E-posta: ${input.email}`,
+    `Telefon: ${input.phone}`,
     `Proje Turu: ${projectType}`,
     `Gonderim Zamani: ${submittedAt}`,
     "",

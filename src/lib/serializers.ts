@@ -1,4 +1,4 @@
-import type { ContactMessage, Project } from "@/types/data";
+import type { Project } from "@/types/data";
 
 type MongoDocument = {
   _id: { toString(): string };
@@ -30,29 +30,5 @@ export function serializeProject(
     display_order: project.display_order ?? 0,
     created_at: project.created_at?.toISOString(),
     updated_at: project.updated_at?.toISOString(),
-  };
-}
-
-export function serializeContactMessage(
-  message: MongoDocument & {
-    name: string;
-    email: string;
-    type?: string | null;
-    detail: string;
-    is_read: boolean;
-    created_at?: Date | string;
-  },
-): ContactMessage {
-  return {
-    id: message._id.toString(),
-    name: message.name,
-    email: message.email,
-    type: message.type || null,
-    detail: message.detail,
-    is_read: message.is_read,
-    created_at:
-      typeof message.created_at === "string"
-        ? message.created_at
-        : message.created_at?.toISOString() || new Date().toISOString(),
   };
 }

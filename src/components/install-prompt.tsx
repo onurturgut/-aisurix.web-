@@ -9,22 +9,15 @@ type BeforeInstallPromptEvent = Event & {
 };
 
 export function InstallPrompt() {
+  const [mounted, setMounted] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [isStandalone, setIsStandalone] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const displayModeStandalone = window.matchMedia("(display-mode: standalone)").matches;
-    const navigatorStandalone =
-      "standalone" in window.navigator &&
-      Boolean((window.navigator as Navigator & { standalone?: boolean }).standalone);
-    return displayModeStandalone || navigatorStandalone;
-  });
-  const [isIos] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return /iPad|iPhone|iPod/.test(window.navigator.userAgent);
-  });
+  const [isStandalone, setIsStandalone] = useState(false);
+  const [isIos, setIsIos] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    setMounted(true);
 
     const handleDisplayModeChange = () => {
       const displayModeStandalone = window.matchMedia("(display-mode: standalone)").matches;
@@ -34,6 +27,8 @@ export function InstallPrompt() {
       setIsStandalone(displayModeStandalone || navigatorStandalone);
     };
     const mediaQuery = window.matchMedia("(display-mode: standalone)");
+    setIsIos(/iPad|iPhone|iPod/.test(window.navigator.userAgent));
+    handleDisplayModeChange();
 
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
@@ -63,6 +58,8 @@ export function InstallPrompt() {
     await deferredPrompt.userChoice;
     setDeferredPrompt(null);
   };
+
+  if (!mounted) return null;
 
   if (isStandalone) return null;
 

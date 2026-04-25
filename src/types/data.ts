@@ -11,13 +11,3 @@ export type Project = {
   created_at?: string;
   updated_at?: string;
 };
-
-export type ContactMessage = {
-  id: string;
-  name: string;
-  email: string;
-  type: string | null;
-  detail: string;
-  is_read: boolean;
-  created_at: string;
-};

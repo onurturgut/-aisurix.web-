@@ -14,11 +14,7 @@ export const projectInputSchema = z.object({
 export const contactInputSchema = z.object({
   name: z.string().trim().min(1),
   email: z.string().trim().email(),
+  phone: z.string().trim().regex(/^\d{11}$/, "Telefon numarasi 11 haneli olmalidir."),
   type: z.string().trim().nullable().optional(),
   detail: z.string().trim().min(1),
-});
-
-export const loginInputSchema = z.object({
-  email: z.string().trim().email(),
-  password: z.string().min(1),
 });

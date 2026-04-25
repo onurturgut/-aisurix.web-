@@ -7,7 +7,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import type { Project } from "@/types/data";
 import {
   Code2, Monitor, Server, Database, Wrench,
-  Mail, Phone, User, MessageSquare, Send,
+  MessageSquare, Send,
   ArrowRight, ExternalLink, ChevronRight,
   Globe, ShoppingCart, Scissors, Wind, UtensilsCrossed,
   Building2, LayoutDashboard, Menu, X, Sun, Moon
@@ -278,7 +278,7 @@ function Hero() {
       <div className="relative mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 max-[400px]:gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:gap-14 xl:gap-20">
           <div className="space-y-6 max-[400px]:space-y-4 sm:space-y-8 lg:space-y-10">
-            <div className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-accent-green/30 bg-accent-green/5 px-3 py-2 sm:px-5 sm:py-2.5">
+            <div className="mt-[5px] inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-accent-green/30 bg-accent-green/5 px-3 py-2 sm:px-5 sm:py-2.5">
               <span className="h-2.5 w-2.5 rounded-full bg-accent-green animate-pulse-glow" />
               <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-accent-green sm:text-sm sm:tracking-[0.24em]">
                 Projeler İçin Uygun
@@ -696,7 +696,7 @@ function Projects() {
 
 /* ── Contact ── */
 function Contact() {
-  const [formState, setFormState] = useState({ name: "", email: "", type: "", detail: "" });
+  const [formState, setFormState] = useState({ name: "", email: "", phone: "", type: "", detail: "" });
   const [sending, setSending] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -710,6 +710,7 @@ function Contact() {
       body: JSON.stringify({
         name: formState.name,
         email: formState.email,
+        phone: formState.phone,
         type: formState.type || null,
         detail: formState.detail,
       }),
@@ -720,7 +721,7 @@ function Contact() {
       return;
     }
     alert("Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağım.");
-    setFormState({ name: "", email: "", type: "", detail: "" });
+    setFormState({ name: "", email: "", phone: "", type: "", detail: "" });
   };
 
   const inputClass =
@@ -742,27 +743,6 @@ function Contact() {
                 geliştirmek için benimle iletişime geçebilirsiniz. Projenizin detaylarını
                 gönderin, size en kısa sürede dönüş yapayım.
               </p>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                { icon: User, label: "Onur Turgut" },
-                { icon: Phone, label: "0533 599 47 36" },
-                { icon: Mail, label: "onurturgut603@gmail.com" },
-              ].map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.label}
-                    className="flex items-start gap-4 rounded-lg border border-border bg-card/60 p-4 transition-colors hover:border-primary/30 sm:items-center"
-                  >
-                    <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center">
-                      <Icon size={18} className="text-primary" />
-                    </div>
-                    <span className="break-words text-sm text-foreground">{item.label}</span>
-                  </div>
-                );
-              })}
             </div>
           </div>
 
@@ -790,6 +770,24 @@ function Contact() {
                   onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                   className={inputClass}
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 text-foreground">Telefon</label>
+                <input
+                  type="tel"
+                  required
+                  inputMode="numeric"
+                  autoComplete="tel"
+                  pattern="[0-9]{11}"
+                  maxLength={11}
+                  placeholder="05XXXXXXXXX"
+                  value={formState.phone}
+                  onChange={(e) =>
+                    setFormState({ ...formState, phone: e.target.value.replace(/\D/g, "").slice(0, 11) })
+                  }
+                  className={inputClass}
+                />
+                <p className="mt-2 text-xs text-muted-foreground">Telefon numarasi 11 haneli ve sadece rakamlardan olusmalidir.</p>
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2 text-foreground">Proje Türü</label>
@@ -910,23 +908,6 @@ function Footer() {
   );
 }
 
-/* ── WhatsApp FAB ── */
-function WhatsAppButton() {
-  return (
-    <a
-      href="https://wa.me/905335994736"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="safe-fab fixed z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] shadow-lg transition-transform hover:scale-110 sm:h-14 sm:w-14"
-      aria-label="WhatsApp"
-    >
-      <svg viewBox="0 0 24 24" fill="white" className="h-6 w-6 sm:h-7 sm:w-7">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
-    </a>
-  );
-}
-
 /* ───────────────────── PAGE ───────────────────── */
 const Index = () => {
   useScrollFadeIn();
@@ -943,7 +924,6 @@ const Index = () => {
         <Contact />
         <Footer />
       </main>
-      <WhatsAppButton />
     </div>
   );
 };

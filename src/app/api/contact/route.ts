@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
     await sendContactEmail({
       name: payload.data.name,
       email: payload.data.email,
+      phone: payload.data.phone,
       detail: payload.data.detail,
       type: payload.data.type || null,
     });
