@@ -744,6 +744,16 @@ function Contact() {
                 gönderin, size en kısa sürede dönüş yapayım.
               </p>
             </div>
+
+            <div className="hidden justify-start lg:flex">
+              <div className="p-4">
+                <img
+                  src="/icon.svg"
+                  alt="aisurix.web ikonu"
+                  className="h-[400px] w-[500px]"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Right form */}
