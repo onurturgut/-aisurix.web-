@@ -164,7 +164,7 @@ function Header({ active }: { active: string }) {
           : "bg-background/40 backdrop-blur-md border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-3 px-4 py-2.5 sm:px-6 sm:py-4 lg:px-8">
+      <div className="mx-auto flex min-h-[var(--header-row-height)] w-full max-w-[1440px] items-center justify-between gap-3 pb-2.5 pl-[max(env(safe-area-inset-left),1rem)] pr-[max(env(safe-area-inset-right),1rem)] pt-[calc(env(safe-area-inset-top)+0.625rem)] sm:pb-4 sm:pl-[max(env(safe-area-inset-left),1.5rem)] sm:pr-[max(env(safe-area-inset-right),1.5rem)] sm:pt-[calc(env(safe-area-inset-top)+1rem)] lg:pl-[max(env(safe-area-inset-left),2rem)] lg:pr-[max(env(safe-area-inset-right),2rem)]">
         <button onClick={() => scrollTo("#hero")} className="group flex min-w-0 items-center gap-1">
           <span className="text-primary font-mono text-base font-bold opacity-70 transition-opacity group-hover:opacity-100 sm:text-lg">&lt;</span>
           <span className="truncate text-[15px] font-bold tracking-tight text-foreground sm:text-lg">aisurix.web</span>
@@ -224,7 +224,7 @@ function Header({ active }: { active: string }) {
       </div>
 
       {mobileOpen && (
-        <div className="max-h-[calc(100svh-4.25rem)] overflow-y-auto border-t border-border bg-background/95 px-4 pb-5 backdrop-blur-xl sm:px-6 md:hidden">
+        <div className="max-h-[calc(100svh-var(--header-total-height))] overflow-y-auto border-t border-border bg-background/95 pb-[max(1.25rem,env(safe-area-inset-bottom))] pl-[max(env(safe-area-inset-left),1rem)] pr-[max(env(safe-area-inset-right),1rem)] pt-2 backdrop-blur-xl sm:pl-[max(env(safe-area-inset-left),1.5rem)] sm:pr-[max(env(safe-area-inset-right),1.5rem)] md:hidden">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.href}
@@ -268,7 +268,7 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-24 pb-12 max-[400px]:pt-20 max-[400px]:pb-8 sm:pt-24 sm:pb-16 md:pt-28 lg:pt-32 lg:pb-24"
+      className="relative flex min-h-[calc(100svh-var(--header-total-height))] scroll-mt-[var(--header-total-height)] items-center overflow-hidden pb-12 max-[400px]:pb-8 sm:pb-16 lg:pb-24"
     >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[10%] left-[-10%] h-[280px] w-[280px] rounded-full bg-primary/8 blur-[90px] animate-float-slow sm:left-[8%] sm:h-[520px] sm:w-[520px] sm:blur-[120px]" />
@@ -424,7 +424,7 @@ function Hero() {
 /* ── About ── */
 function About() {
   return (
-    <section id="about" className="py-24 lg:py-32 relative">
+    <section id="about" className="relative scroll-mt-[var(--header-total-height)] py-24 lg:py-32">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
         {/* Section heading */}
         <div className="text-center mb-16 fade-in-section">
@@ -522,14 +522,14 @@ function ProjectModal({ project, onClose }: { project: typeof FALLBACK_PROJECTS[
 
   return (
       <div
-        className={`fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-5 transition-all duration-300 ${
+        className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-5 transition-all duration-300 ${
           isClosing ? "bg-background/0 backdrop-blur-0" : "bg-background/80 backdrop-blur-sm"
         }`}
       style={{ animation: isClosing ? undefined : "modalOverlayIn 0.3s ease-out" }}
       onClick={handleClose}
     >
       <div
-        className={`w-full max-w-2xl rounded-t-2xl border bg-card p-4 sm:max-h-[85vh] sm:rounded-lg sm:p-8 space-y-5 max-h-[92svh] overflow-y-auto shadow-[0_20px_60px_hsl(187_100%_50%/0.1),0_0_40px_hsl(0_0%_0%/0.3)] ${
+        className={`w-full max-w-2xl rounded-2xl border bg-card p-4 sm:max-h-[85vh] sm:rounded-lg sm:p-8 space-y-5 max-h-[85svh] overflow-y-auto shadow-[0_20px_60px_hsl(187_100%_50%/0.1),0_0_40px_hsl(0_0%_0%/0.3)] ${
           isClosing
             ? "border-border animate-[modalContentOut_0.25s_ease-in_forwards]"
             : "border-primary/20 animate-[modalContentIn_0.35s_ease-out]"
@@ -619,7 +619,7 @@ function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="py-24 lg:py-32 relative">
+    <section id="projects" className="relative scroll-mt-[var(--header-total-height)] py-24 lg:py-32">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 fade-in-section">
           <span className="inline-block px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-mono mb-4">
@@ -727,7 +727,7 @@ function Contact() {
     "w-full px-4 py-3 rounded-md bg-muted/40 border border-border text-foreground placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30 transition-colors";
 
   return (
-    <section id="contact" className="py-24 lg:py-32 relative">
+    <section id="contact" className="relative scroll-mt-[var(--header-total-height)] py-24 lg:py-32">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Left info */}
@@ -936,11 +936,13 @@ const Index = () => {
     <div className="min-h-screen bg-background grid-pattern relative overflow-x-hidden">
       <div className="motif-dots" />
       <Header active={active} />
-      <Hero />
-      <About />
-      <Projects />
-      <Contact />
-      <Footer />
+      <main className="pt-[var(--header-total-height)]">
+        <Hero />
+        <About />
+        <Projects />
+        <Contact />
+        <Footer />
+      </main>
       <WhatsAppButton />
     </div>
   );

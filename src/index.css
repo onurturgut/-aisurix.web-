@@ -4,6 +4,16 @@
 
 @layer base {
   :root {
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --safe-area-right: env(safe-area-inset-right, 0px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-left: env(safe-area-inset-left, 0px);
+    --header-row-height: 2.5rem;
+    --header-block-padding: 0.625rem;
+    --header-total-height: calc(
+      var(--safe-area-top) + var(--header-row-height) + (var(--header-block-padding) * 2)
+    );
+
     --background: 230 55% 10%;
     --foreground: 210 25% 92%;
 
@@ -120,6 +130,13 @@
   }
 }
 
+@media (min-width: 640px) {
+  :root {
+    --header-row-height: 2.75rem;
+    --header-block-padding: 1rem;
+  }
+}
+
 /* Minimal motif overlay */
 .grid-pattern {
   background-color: hsl(var(--background));
@@ -214,6 +231,6 @@
 }
 
 .safe-fab {
-  bottom: max(1rem, env(safe-area-inset-bottom));
-  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, var(--safe-area-bottom));
+  right: max(1rem, var(--safe-area-right));
 }
